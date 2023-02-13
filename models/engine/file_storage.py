@@ -51,6 +51,7 @@ class FileStorage:
             from models.amenity import Amenity
             from models.place import Place
             from models.review import Review
+            from models.state import State
             # create objects from temp_dict values and save in `__objects`
             for key, value in temp_dict.items():
                 class_name = value["__class__"]

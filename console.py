@@ -32,23 +32,22 @@ class HBNBCommand(cmd.Cmd):
         """Create a new instance of a class eg 'create BaseModel'\n"""
         if not arg:
             print("** class name missing **")
+        elif arg in HBNBCommand.classes:
+            obj = eval(f"{arg}()")
+            print(obj.id)
+            obj.save()
         else:
-            try:
-                obj = eval(f"{arg}()")
-                print(obj.id)
-                obj.save()
-            except Exception:
-                print("** class doesn't exist **")
+            print("** class doesn't exist **")
 
     def do_show(self, arg):
         """Prints an object eg. show BaseModel 123232\n"""
         args = arg.split()
-        if (len(args) == 0):
+        if (len(args) < 1):
             print("** class name missing **")
-        elif (len(args) == 1):
-            print("** instance id missing **")
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
+        elif len(args) < 2:
+            print("** instance id missing **")
         else:
             objects = BaseModel.all()
             id_exists = False
@@ -67,9 +66,9 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, arg):
         """Deletes an instance eg destroy BaseModel 342352\n"""
         args = arg.split()
-        if (len(args) == 0):
+        if (len(args) < 1):
             print("** class name missing **")
-        elif (len(args) == 1):
+        elif (len(args) < 2):
             print("** instance id missing **")
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
@@ -115,11 +114,11 @@ class HBNBCommand(cmd.Cmd):
         """Update or add attribute to object\n"""
         args = arg.split()
 
-        if len(args) == 0:
+        if len(args) < 1:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
-        elif len(args) == 1:
+        elif len(args) < 2:
             print("** instance id missing **")
         else:
             objects = BaseModel.all()
@@ -136,13 +135,16 @@ class HBNBCommand(cmd.Cmd):
 
             if id_exists:
                 # check if attribute name was provided
-                if len(args) == 2:
+                if len(args) < 3:
                     print("** attribute name missing **")
-                elif len(args) == 3:
+                elif len(args) < 4:
                     print("** value missing **")
                 else:
                     # Remove quotes ("") from args[3] and update attribute
-                    setattr(obj, args[2], args[3][1:-1])
+                    if '"' in args[3]:
+                        setattr(obj, args[2], args[3][1:-1])
+                    else:
+                        setattr(obj, args[2], args[3])
             else:
                 print("** no instance found **")
 
