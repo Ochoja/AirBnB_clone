@@ -7,3 +7,11 @@ header{
   display: flex;
   align-items: center;
 }
+
+header .logo{
+  background-image: url("../images/icon.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+}
