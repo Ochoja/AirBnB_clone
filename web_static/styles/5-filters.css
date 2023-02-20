@@ -20,6 +20,31 @@
   margin-left: auto;
 }
 
+.filters .locations,
+.filters .amenities {
+  height: 100%;
+  width: 25%;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.filters h3{
+  font-weight: 600;
+  margin: 0;
+}
+
+.filters h4 {
+  font-weight: 400;
+  font-size: 14px;
+  margin: 0;
+}
+
+.filters .locations {
+  border-right: 1px solid #DDDDDD;
+}
+
 .filters button:hover{
   opacity: 90%;
 }
